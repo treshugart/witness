@@ -267,7 +267,9 @@
 
 
   if (typeof define === 'function' && define.amd) {
-    define('witness', witness);
+    define('witness', function() {
+      return witness;
+    });
   } else {
     window.witness = witness;
   }
