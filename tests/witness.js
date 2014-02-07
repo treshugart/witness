@@ -5,7 +5,7 @@
 
   beforeEach(function() {
     observed = {};
-    observer = espy(observed);
+    observer = witness(observed);
   });
 
   afterEach(function() {

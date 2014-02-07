@@ -9,8 +9,8 @@ module.exports = function(grunt) {
     concat: {
       all: {
         files: {
-          'dist/espy.js': [
-            'src/espy.js'
+          'dist/witness.js': [
+            'src/witness.js'
           ]
         }
       }
@@ -20,8 +20,8 @@ module.exports = function(grunt) {
         options: {
           browsers: ['PhantomJS'],
           files: [
-            'src/espy.js',
-            'tests/espy.js'
+            'src/witness.js',
+            'tests/witness.js'
           ],
           frameworks: ['mocha', 'sinon-chai'],
           singleRun: true
@@ -31,7 +31,7 @@ module.exports = function(grunt) {
     uglify: {
       all: {
         files: {
-          'dist/espy.min.js': 'dist/espy.js'
+          'dist/witness.min.js': 'dist/witness.js'
         }
       }
     },

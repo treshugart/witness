@@ -1,6 +1,6 @@
-[![Build Status](https://travis-ci.org/treshugart/espy.png?branch=master)](https://travis-ci.org/treshugart/espy)
+[![Build Status](https://travis-ci.org/treshugart/witness.png?branch=master)](https://travis-ci.org/treshugart/witness)
 
-espy
+witness
 ====
 
 Listen for changes in JavaScript objects.
@@ -11,7 +11,7 @@ Usage
 To observe changes, you must first get an observer for the object you want to observe:
 
     var observed = {};
-    var observer = espy(observed);
+    var observer = witness(observed);
 
 ### Additions
 

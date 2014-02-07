@@ -253,7 +253,7 @@
   };
 
 
-  function espy(obj) {
+  function witness(obj) {
     var observer = Observer.find(obj);
 
     if (!observer) {
@@ -267,9 +267,9 @@
 
 
   if (typeof define === 'function' && define.amd) {
-    define('espy', espy);
+    define('witness', witness);
   } else {
-    window.espy = espy;
+    window.witness = witness;
   }
 
 })();
