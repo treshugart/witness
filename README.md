@@ -10,7 +10,7 @@ Usage
 
 To observe changes, you must first get an observer:
 
-    var observed = { test: false };
+    var observed = {};
     var observer = espy(obj);
 
 You can then listen for changes:
