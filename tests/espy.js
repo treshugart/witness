@@ -14,9 +14,7 @@
 
   describe('Observing objects', function() {
     it('Should observe additions', function(done) {
-      observer.on(function(changes) {
-        var change = changes[0];
-
+      observer.on('add', function(change) {
         change.object.should.equal(observed);
         change.type.should.equal('add');
         change.name.should.equal('test');
@@ -32,9 +30,7 @@
     it('Should observe updates', function(done) {
       observed.test = false;
 
-      observer.on(function(changes) {
-        var change = changes[0];
-
+      observer.on('update', function(change) {
         change.object.should.equal(observed);
         change.type.should.equal('update');
         change.name.should.equal('test');
@@ -50,9 +46,7 @@
     it('Should observe deletions', function(done) {
       observed.test = true;
 
-      observer.on(function(changes) {
-        var change = changes[0];
-
+      observer.on('delete', function(change) {
         change.object.should.equal(observed);
         change.type.should.equal('delete');
         change.name.should.equal('test');
@@ -63,6 +57,20 @@
       });
 
       delete observed.test;
+    });
+
+    it('Should observe any type of event', function() {
+      observer.on('all', function(change) {
+        change.object.should.equal(observed);
+        change.type.should.equal('add');
+        change.name.should.equal('test');
+        change.oldValue.should.equal(undefined);
+        expect(change.newValue).to.equal(true);
+
+        done();
+      });
+
+      observed.test = true;
     });
   });
 

@@ -5,6 +5,7 @@
 
   var objectRegistry = [];
   var observerRegistry = [];
+  var types = ['add', 'update', 'delete', 'all'];
 
 
   // Common implementation for traversing an array or object.
@@ -80,8 +81,7 @@
   function Observer(obj) {
     this.isArray = Array.isArray(obj);
     this.obj = obj;
-    this.listeners = [];
-    this.timeout = false;
+    this.init();
   };
 
   Observer.find = function(obj) {
@@ -92,33 +92,54 @@
   Observer.prototype = {
     constructor: Observer,
 
-    on: function(fn) {
-      if (!this.listeners.length) {
-        this.start();
-      }
+    init: function() {
+      var that = this;
 
-      this.listeners.push(fn);
+      this.listeners = {};
+      this.timeout = false;
+
+      types.forEach(function(type) {
+        that.listeners[type] = [];
+      });
 
       return this;
     },
 
-    off: function(fn) {
-      if (fn) {
-        this.listeners.splice(this.listeners.indexOf(fn), 1);
-      } else {
-        this.listeners = [];
+    on: function(type, fn) {
+      if (!this.listening()) {
+        this.start();
       }
 
-      if (!this.listeners.length) {
+      this.listeners[type].push(fn);
+
+      return this;
+    },
+
+    off: function(type, fn) {
+      if (fn) {
+        this.listeners[type].splice(this.listeners.indexOf(fn), 1);
+      } else {
+        this.listeners[type] = [];
+      }
+
+      if (!this.listening()) {
         this.stop();
       }
 
       return this;
     },
 
-    notify: function(diff) {
-      this.listeners.forEach(function(fn) {
-        fn(diff);
+    notify: function(diffs) {
+      var that = this;
+
+      diffs.forEach(function(diff) {
+        that.listeners[diff.type].forEach(function(fn) {
+          fn(diff);
+        });
+
+        that.listeners.all.forEach(function(fn) {
+          fn(diff);
+        });
       });
 
       return this;
@@ -179,6 +200,16 @@
       return this;
     },
 
+    listening: function() {
+      for (var a = 0; a < types.length; a++) {
+        if (this.listeners[types[a]].length) {
+          return true;
+        }
+      }
+
+      return false;
+    },
+
     start: function() {
       var that = this;
 
@@ -200,10 +231,17 @@
     },
 
     stop: function() {
+      var that = this;
+
       timeoutEnd(this.timeout);
-      this.listeners = [];
+
       this.state = {};
       this.timeout = false;
+
+      types.forEach(function(type) {
+        that.listeners[type] = [];
+      })
+
       return this;
     }
   };
