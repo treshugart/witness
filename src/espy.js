@@ -117,7 +117,7 @@
 
     off: function(type, fn) {
       if (fn) {
-        this.listeners[type].splice(this.listeners.indexOf(fn), 1);
+        this.listeners[type].splice(this.listeners[type].indexOf(fn), 1);
       } else {
         this.listeners[type] = [];
       }

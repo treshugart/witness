@@ -101,6 +101,8 @@
         assert(true);
         done();
       });
+
+      observed.test = true;
     });
 
     it('Should stop listening on destroy', function(done) {
