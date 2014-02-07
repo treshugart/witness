@@ -13,14 +13,11 @@ To observe changes, you must first get an observer for the object you want to ob
     var observed = {};
     var observer = espy(observed);
 
-You can then listen for changes:
-
-    observer.on(console.log);
-
 ### Additions
 
 Adding a property:
 
+    observer.on('add', console.log);
     observed.test = false;
 
 Would log:
@@ -37,6 +34,7 @@ Would log:
 
 Updating a property:
 
+    observer.on('update', console.log);
     observed.test = true;
 
 
@@ -54,6 +52,7 @@ Would log:
 
 Deleting a property:
 
+    observer.on('delete', console.log);
     delete observed.test;
 
 Would log:
@@ -66,12 +65,24 @@ Would log:
       newValue: undefined
     }
 
+### Any Type of Change
+
+You can also listen for any type of change to the object:
+
+    observer.on('change', console.log);
+
 ### Removing Listeners
 
-You may want to remove a listener:
+You may want to remove a listener for a particular event type:
 
-    observer.off(console.log);
+    observer.off('change', console.log);
 
-Or all listeners:
+Or all listeners for a given type:
 
-    observer.off();
+    observer.off('change');
+
+### Destroying
+
+If you don't want to observe the object anymore and want to destroy the observer's reference to it:
+
+    observer.destroy();

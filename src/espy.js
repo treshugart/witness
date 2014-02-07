@@ -243,6 +243,12 @@
       })
 
       return this;
+    },
+
+    destroy: function() {
+      this.stop();
+      delete this.obj;
+      return this;
     }
   };
 
