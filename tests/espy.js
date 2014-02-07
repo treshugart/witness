@@ -89,6 +89,20 @@
       observed.test = true;
     });
 
+    it('Should stop listenging to particular event handlers', function(done) {
+      var handler = function() {
+        assert(false);
+        done();
+      };
+
+      observer.on('add', handler);
+      observer.off('add', handler);
+      observer.on('change', function() {
+        assert(true);
+        done();
+      });
+    });
+
     it('Should stop listening on destroy', function(done) {
       observer.on('change', function() {
         assert(false);
