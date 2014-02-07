@@ -1,4 +1,4 @@
 espy
 ====
 
-Listen for changes in objects.
+Listen for changes in JavaScript objects.

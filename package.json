@@ -1,0 +1,6 @@
+{
+  "name": "espy",
+  "description": "Listen for changes in JavaScript objects.",
+  "dependencies": {},
+  "devDependencies": {}
+}
