@@ -8,10 +8,10 @@ Listen for changes in JavaScript objects.
 Usage
 -----
 
-To observe changes, you must first get an observer:
+To observe changes, you must first get an observer for the object you want to observe:
 
     var observed = {};
-    var observer = espy(obj);
+    var observer = espy(observed);
 
 You can then listen for changes:
 
