@@ -2,8 +2,6 @@ module.exports = function(grunt) {
 
   'use strict';
 
-  var host = grunt.option('host') || 'localhost';
-
   grunt.loadNpmTasks('grunt-contrib');
   grunt.loadNpmTasks('grunt-karma');
 
@@ -11,8 +9,8 @@ module.exports = function(grunt) {
     concat: {
       all: {
         files: {
-          'dist/skate.js': [
-            'src/skate.js'
+          'dist/espy.js': [
+            'src/espy.js'
           ]
         }
       }
@@ -22,8 +20,8 @@ module.exports = function(grunt) {
         options: {
           browsers: ['PhantomJS'],
           files: [
-            'dist/skate.js',
-            'tests/skate.js'
+            'dist/espy.js',
+            'tests/espy.js'
           ],
           frameworks: ['mocha', 'sinon-chai'],
           singleRun: true
@@ -33,7 +31,7 @@ module.exports = function(grunt) {
     uglify: {
       all: {
         files: {
-          'dist/skate.min.js': 'dist/skate.js'
+          'dist/espy.min.js': 'dist/espy.js'
         }
       }
     },
