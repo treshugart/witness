@@ -7,6 +7,76 @@
   var observerRegistry = [];
 
 
+  // Common implementation for traversing an array or object.
+  function each(items, cb) {
+    if (!items) {
+      return;
+    }
+
+    if (isObject(items)) {
+      for (var a in items) {
+        if (items.hasOwnProperty(a)) {
+          if (cb(items[a], a) === false) {
+            return;
+          }
+        }
+      }
+    } else if (items.length) {
+      for (var a = 0; a < items.length; a++) {
+        if (cb(items[a], a) === false) {
+          return;
+        }
+      }
+    }
+  }
+
+
+  // Adapted from: http://my.opera.com/emoller/blog/2011/12/20/requestanimationframe-for-smart-er-animating.
+  //
+  // Calls the specified function using `RequestAnimationFrame` and falls back to using `setTimeout`.
+  var timeout = (function() {
+    var lastTime = 0;
+    var vendors = ['ms', 'moz', 'webkit', 'o'];
+
+    if (window.requestAnimationFrame) {
+      return window.requestAnimationFrame;
+    }
+
+    for (var x = 0; x < vendors.length; ++x) {
+      var method = vendors[x] + 'RequestAnimationFrame';
+
+      if (typeof window[method] === 'function') {
+        return window[method];
+      }
+    }
+
+    if (!window.requestAnimationFrame) {
+      return function(callback, element) {
+        var currTime = new Date().getTime();
+        var timeToCall = Math.max(0, 16 - (currTime - lastTime));
+        var id = window.setTimeout(function() {
+          callback(currTime + timeToCall);
+        },  timeToCall);
+
+        lastTime = currTime + timeToCall;
+
+        return id;
+      };
+    }
+  }());
+
+  // Ends a timeout started with `timeout`.
+  var timeoutEnd = (function() {
+    if (window.cancelAnimationFrame) {
+      return window.cancelAnimationFrame;
+    }
+
+    return function(id) {
+      clearTimeout(id);
+    };
+  })();
+
+
   function Observer(obj) {
     var that = this;
 
@@ -15,18 +85,6 @@
     this.listeners = [];
 
     that.save();
-    timeout(run);
-
-    function run() {
-      var diff = that.diff();
-
-      if (diff.length) {
-        that.save();
-        that.notify(diff);
-      }
-
-      timeout(run);
-    };
   };
 
   Observer.find = function(obj) {
@@ -38,19 +96,34 @@
     constructor: Observer,
 
     on: function(fn) {
+      if (!this.listeners.length) {
+        this.start();
+      }
+
       this.listeners.push(fn);
+
       return this;
     },
 
     off: function(fn) {
-      this.listeners.splice(this.listeners.indexOf(fn), 1);
+      if (fn) {
+        this.listeners.splice(this.listeners.indexOf(fn), 1);
+      } else {
+        this.listeners = [];
+      }
+
+      if (!this.listeners.length) {
+        this.stop();
+      }
+
       return this;
     },
 
     notify: function(diff) {
-      each(this.listeners, function(fn) {
+      this.listeners.forEach(function(fn) {
         fn(diff);
       });
+
       return this;
     },
 
@@ -106,6 +179,28 @@
         that.state[a] = val;
       });
 
+      return this;
+    },
+
+    start: function() {
+      this.timeout = timeout(run);
+
+      function run() {
+        var diff = that.diff();
+
+        if (diff.length) {
+          that.save();
+          that.notify(diff);
+        }
+
+        timeout(run);
+      };
+
+      return this;
+    },
+
+    stop: function() {
+      timeoutEnd(this.timeout);
       return this;
     }
   };
