@@ -72,6 +72,22 @@
 
       observed.test = true;
     });
+
+    it('Should stop listening on destroy', function(done) {
+      observer.on('all', function() {
+        assert(false);
+        done();
+      });
+
+      observer.destroy();
+
+      observed.test = true;
+
+      setTimeout(function() {
+        assert(true);
+        done();
+      }, 100);
+    });
   });
 
 })();
