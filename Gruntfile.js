@@ -20,7 +20,7 @@ module.exports = function(grunt) {
         options: {
           browsers: ['PhantomJS'],
           files: [
-            'dist/espy.js',
+            'src/espy.js',
             'tests/espy.js'
           ],
           frameworks: ['mocha', 'sinon-chai'],

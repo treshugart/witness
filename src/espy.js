@@ -13,7 +13,7 @@
       return;
     }
 
-    if (isObject(items)) {
+    if (items.hasOwnProperty) {
       for (var a in items) {
         if (items.hasOwnProperty(a)) {
           if (cb(items[a], a) === false) {
@@ -78,13 +78,10 @@
 
 
   function Observer(obj) {
-    var that = this;
-
-    this.isArray = isArray(obj);
+    this.isArray = Array.isArray(obj);
     this.obj = obj;
     this.listeners = [];
-
-    that.save();
+    this.timeout = false;
   };
 
   Observer.find = function(obj) {
@@ -183,6 +180,9 @@
     },
 
     start: function() {
+      var that = this;
+
+      this.save();
       this.timeout = timeout(run);
 
       function run() {
@@ -201,6 +201,9 @@
 
     stop: function() {
       timeoutEnd(this.timeout);
+      this.listeners = [];
+      this.state = {};
+      this.timeout = false;
       return this;
     }
   };
