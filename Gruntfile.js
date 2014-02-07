@@ -43,7 +43,7 @@ module.exports = function(grunt) {
     }
   });
 
-  grunt.registerTask('build', 'Runs the tests and builds the dist.', ['test']);
+  grunt.registerTask('build', 'Runs the tests and builds the dist.', ['test', 'dist']);
   grunt.registerTask('dist', 'Builds the dist.', ['concat', 'uglify']);
   grunt.registerTask('test', 'Runs the tests.', ['karma']);
 
