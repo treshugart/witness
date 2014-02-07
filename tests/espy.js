@@ -60,7 +60,7 @@
     });
 
     it('Should observe any type of event', function() {
-      observer.on('all', function(change) {
+      observer.on('change', function(change) {
         change.object.should.equal(observed);
         change.type.should.equal('add');
         change.name.should.equal('test');
@@ -73,8 +73,24 @@
       observed.test = true;
     });
 
+    it('Should stop listening to particular events', function(done) {
+      observer.on('add', function() {
+        assert(false);
+        done();
+      });
+
+      observer.on('change', function() {
+        assert(true);
+        done();
+      });
+
+      observer.off('add');
+
+      observed.test = true;
+    });
+
     it('Should stop listening on destroy', function(done) {
-      observer.on('all', function() {
+      observer.on('change', function() {
         assert(false);
         done();
       });

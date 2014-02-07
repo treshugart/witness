@@ -5,7 +5,7 @@
 
   var objectRegistry = [];
   var observerRegistry = [];
-  var types = ['add', 'update', 'delete', 'all'];
+  var types = ['add', 'update', 'delete', 'change'];
 
 
   // Common implementation for traversing an array or object.
@@ -137,7 +137,7 @@
           fn(diff);
         });
 
-        that.listeners.all.forEach(function(fn) {
+        that.listeners.change.forEach(function(fn) {
           fn(diff);
         });
       });
