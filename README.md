@@ -17,10 +17,6 @@ You can then listen for changes:
 
     observer.on(console.log);
 
-Or not:
-
-    observer.off(console.log);
-
 ### Additions
 
 Adding a property:
@@ -69,3 +65,13 @@ Would log:
       oldValue: true,
       newValue: undefined
     }
+
+### Removing Listeners
+
+You may want to remove a listener:
+
+    observer.off(console.log);
+
+Or all listeners:
+
+    observer.off();
