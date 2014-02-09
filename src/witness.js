@@ -247,6 +247,8 @@
 
     destroy: function() {
       this.stop();
+      objectRegistry.splice(objectRegistry.indexOf(this.obj), 1);
+      observerRegistry.splice(observerRegistry.indexOf(this), 1);
       delete this.obj;
       return this;
     }
