@@ -86,3 +86,7 @@ Or all listeners for a given type:
 If you don't want to observe the object anymore and want to destroy the observer's reference to it:
 
     observer.destroy();
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/treshugart/witness/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
