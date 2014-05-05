@@ -79,6 +79,10 @@
 
 
   function Observer(obj) {
+    if (typeof obj !== 'object') {
+      throw new Error('Cannot observe non-object: ' + obj);
+    }
+
     this.isArray = Array.isArray(obj);
     this.obj = obj;
     this.init();
@@ -149,6 +153,7 @@
       var that = this;
       var diffs = [];
       var a = 0;
+      var keys = Object.keys(this.obj);
 
       if (this.isArray && this.obj.length === this.state.length) {
         return diffs;
@@ -161,26 +166,28 @@
 
         if (missing) {
           diffs.push({
-            object: that.obj,
-            type: 'delete',
+            index: that.isArray ? a : keys.indexOf(a),
             name: a,
+            newValue: undefined,
+            object: that.obj,
             oldValue: val,
-            newValue: undefined
+            type: 'delete'
           });
         }
       });
 
       each(this.obj, function(val, a) {
-        var isAdd = that.isArray ? that.state.indexOf(val) === -1 : typeof that.state[a] === 'undefined';
+        var isAdd = typeof that.state[a] === 'undefined';
         var isUpdate = that.isArray ? that.obj.length === that.state.length && that.state[a] !== val : that.state[a] !== val;
 
         if (isAdd || isUpdate) {
           diffs.push({
-            object: that.obj,
-            type: typeof that.state[a] === 'undefined' ? 'add' : 'update',
+            index: that.isArray ? a : keys.indexOf(a),
             name: a,
+            newValue: val,
+            object: that.obj,
             oldValue: typeof that.state[a] === 'undefined' ? undefined : that.state[a],
-            newValue: val
+            type: typeof that.state[a] === 'undefined' ? 'add' : 'update'
           });
         }
       });
