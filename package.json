@@ -2,13 +2,32 @@
   "name": "witness",
   "version": "0.1.1",
   "description": "Listen for changes in JavaScript objects.",
-  "repository": "git@github.com:treshugart/witness",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:treshugart/witness"
+  },
   "devDependencies": {
     "chippy": "0.0.0",
     "gulp": "^3.8.11",
     "gulp-auto-task": "0.0.1"
   },
   "scripts": {
-    "test": "grunt test"
-  }
+    "test": "gulp test"
+  },
+  "bugs": {
+    "url": "https://github.com/treshugart/witness/issues"
+  },
+  "homepage": "https://github.com/treshugart/witness",
+  "main": "lib/index.js",
+  "dependencies": {
+    "chippy": "^0.0.0",
+    "gulp": "^3.8.11",
+    "gulp-auto-task": "^0.0.1"
+  },
+  "keywords": [
+    "object",
+    "observe"
+  ],
+  "author": "Trey Shugart <treshugart@gmail.com>",
+  "license": "MIT"
 }
