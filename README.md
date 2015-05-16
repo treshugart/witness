@@ -1,12 +1,10 @@
 [![Build Status](https://travis-ci.org/treshugart/witness.png?branch=master)](https://travis-ci.org/treshugart/witness)
 
-witness
-====
+# witness
 
 Listen for changes in JavaScript objects.
 
-Usage
------
+## Usage
 
 To observe changes, you must first get an observer for the object you want to observe:
 
@@ -86,7 +84,3 @@ Or all listeners for a given type:
 If you don't want to observe the object anymore and want to destroy the observer's reference to it:
 
     observer.destroy();
-
-
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/treshugart/witness/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
-
