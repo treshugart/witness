@@ -1,0 +1,28 @@
+{
+  "name": "witness",
+  "version": "0.1.1",
+  "homepage": "https://github.com/treshugart/witness",
+  "authors": [
+    "Trey Shugart <treshugart@gmail.com>"
+  ],
+  "description": "Listen for changes in JavaScript objects.",
+  "main": "dist/witness.js",
+  "moduleType": [
+    "amd",
+    "es6",
+    "globals",
+    "node"
+  ],
+  "keywords": [
+    "object",
+    "observe"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
