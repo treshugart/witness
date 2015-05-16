@@ -6,8 +6,9 @@
     "type": "git",
     "url": "git@github.com:treshugart/witness"
   },
+  "dependencies": {},
   "devDependencies": {
-    "chippy": "0.0.0",
+    "chippy": "treshugart/chippy#fda6504d5c5e543ef8f60201170e28f359bd881f",
     "gulp": "^3.8.11",
     "gulp-auto-task": "0.0.1"
   },
@@ -19,11 +20,6 @@
   },
   "homepage": "https://github.com/treshugart/witness",
   "main": "lib/index.js",
-  "dependencies": {
-    "chippy": "^0.0.0",
-    "gulp": "^3.8.11",
-    "gulp-auto-task": "^0.0.1"
-  },
   "keywords": [
     "object",
     "observe"
